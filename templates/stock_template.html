@@ -1,0 +1,26 @@
+<!doctype html>
+<title>Stock Prices for the Last Month</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+<h1>Stock Prices for the Last Month</h1>
+     <h4>
+      Please enter the Ticker Name for a Stock and Type of Price
+    </h4>
+
+    <form id="tickerform" method="post" action="home">
+      <p>
+      <div>
+    Ticker Name: <input type="text" name="ticker_name" />
+      </div>  
+      </p>
+      <div>
+      <input type="radio" id="choice1" name="closing" value="closing_price"  checked/>
+      <label for="choice1"> Closing Price </label> 
+      <input type="radio" id="choice2" name="closing" value="adj_closing_price"  />
+      <label for="choice2"> Adj Closing Price </label> 
+      <p>
+      </div>
+     <div> 
+    <input type="submit" value="Submit" />
+      </div>
+      </form>
+</html>
