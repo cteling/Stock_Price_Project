@@ -46,8 +46,9 @@ def price_plot():
     return render_template('stock_price.html')
 
 if __name__ == '__main__':
+    app.debug = True
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port,DEBUG=True)
+    app.run(host='0.0.0.0', port=port)
    
 
 #port=33507
