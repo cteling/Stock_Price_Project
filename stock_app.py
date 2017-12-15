@@ -30,17 +30,14 @@ def home():
             p.line(df_last_month['date'],df_last_month['close'],color="blue")
             p.circle(df_last_month['date'],df_last_month['close'],color="red")
             script, div = components(p)
-            return redirect('/price_plot')
+            return render_template('stock_price.html', script=script, div=div)
         else:
             p = figure(title='Adj. Closing Stock Price for '+app.vars['tick_name']+' over Last Month', x_axis_label='Date', y_axis_label='Price (Dollars)',x_axis_type="datetime")
             p.line(df_last_month['date'],df_last_month['adj_close'],color="blue")
             p.circle(df_last_month['date'],df_last_month['adj_close'],color="red")
             script, div = components(p)
-            return redirect('/price_plot')
+            return render_template('stock_price.html', script=script, div=div)
     
-@app.route('/price_plot', methods=['GET','POST']) 
-def price_plot():
-    return render_template('stock_price.html', script=script, div=div)
 
 if __name__ == '__main__':
     app.debug = True
