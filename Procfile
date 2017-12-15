@@ -1,1 +1,1 @@
-web: python dealscraper/stock_app.py
+web: gunicorn stock_app.py
