@@ -4,6 +4,7 @@ import requests
 import pandas as pd
 import json
 from bokeh.plotting import figure, output_notebook, output_file, show, save, reset_output
+from bokeh.embed import components
 
 app = Flask(__name__)
 
@@ -25,25 +26,21 @@ def home():
         df_last_month = df.iloc[-1:-22:-1,0:3]
         df_last_month['date'] = pd.to_datetime(df_last_month['date'])
         if request.form['closing'] ==  'closing_price':
-            reset_output()
-            output_file("templates\\stock_price.html")
             p = figure(title='Closing Stock Price for '+app.vars['tick_name']+' over Last Month', x_axis_label='Date', y_axis_label='Price (Dollars)',x_axis_type="datetime")
             p.line(df_last_month['date'],df_last_month['close'],color="blue")
             p.circle(df_last_month['date'],df_last_month['close'],color="red")
-            save(p)
+            script, div = components(p)
             return redirect('/price_plot')
         else:
-            reset_output()
-            output_file("templates\\stock_price.html")
             p = figure(title='Adj. Closing Stock Price for '+app.vars['tick_name']+' over Last Month', x_axis_label='Date', y_axis_label='Price (Dollars)',x_axis_type="datetime")
             p.line(df_last_month['date'],df_last_month['adj_close'],color="blue")
             p.circle(df_last_month['date'],df_last_month['adj_close'],color="red")
-            save(p)
+            script, div = components(p)
             return redirect('/price_plot')
     
 @app.route('/price_plot', methods=['GET','POST']) 
 def price_plot():
-    return render_template('stock_price.html')
+    return render_template('stock_price.html', script=script, div=div)
 
 if __name__ == '__main__':
     app.debug = True
